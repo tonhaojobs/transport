@@ -1,8 +1,8 @@
 <form class="example-form">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Email" [formControl]="loginFormControl" [errorStateMatcher]="matcher">
+    <input matInput placeholder="Email" [formControl]="loginFormControl" [errorStateMatcher]="matcher"  [(ngModel)]="usuario.login">
     <mat-error *ngIf="loginFormControl.hasError('email') && !loginFormControl.hasError('required')">
-      Informe um e-mail válido.
+      Informe um e-mail válido
     </mat-error>
     <mat-error *ngIf="loginFormControl.hasError('required')">
       Preenchimento obrigatório
@@ -10,26 +10,27 @@
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input type="password" matInput placeholder="Senha" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
-    <mat-error *ngIf="passwordFormControl.hasError('email') && !passwordFormControl.hasError('required')">
-      Informe um e-mail válido.
-    </mat-error>
+    <input type="password" name="password" matInput placeholder="Senha" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"  [(ngModel)]="usuario.password">
+    <!--mat-error *ngIf="passwordFormControl.errors?.pattern && !passwordFormControl.hasError('required')">
+      Informe uma senha válida
+    </mat-error-->
     <mat-error *ngIf="passwordFormControl.hasError('required')">
       Preenchimento obrigatório
     </mat-error>
   </mat-form-field>
   
   <mat-form-field class="example-full-width">
-    <mat-select placeholder="Eu sou">
+    <mat-select placeholder="Eu sou" [formControl]="perfilFormControl" [errorStateMatcher]="matcher" [(ngModel)]="usuario.tipo">
       <mat-option *ngFor="let perfil of perfis" [value]="perfil.key">
         {{perfil.value}}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="passwordFormControl.hasError('required')">
+    <mat-error *ngIf="perfilFormControl.hasError('required')">
         Preenchimento obrigatório
-      </mat-error>
+    </mat-error>
   </mat-form-field>
 
+  <button mat-raised-button (click)="teste()">Ok</button>
   <button mat-raised-button (click)="teste()">Ok</button>
  
 </form>
