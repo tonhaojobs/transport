@@ -4,7 +4,8 @@ import {
   MatButtonModule, 
   MatInputModule, 
   ErrorStateMatcher, 
-  ShowOnDirtyErrorStateMatcher 
+  ShowOnDirtyErrorStateMatcher, 
+  MatSelectModule
 } from '@angular/material';
 
 import { FormsModule } from '@angular/forms';
@@ -13,12 +14,14 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   
   exports: [
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   
   providers: [

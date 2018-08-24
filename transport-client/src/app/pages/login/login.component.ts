@@ -1,6 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { FromValidator } from '../../validator/from-validator';
+import { Perfil } from './../../model/interface/perfil.generates';
+import { FromValidator } from './../../validator/from-validator';
+import { 
+  Component, 
+  OnInit 
+} from '@angular/core';
+
+import {
+  FormControl,
+  Validators 
+} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +17,28 @@ import { FromValidator } from '../../validator/from-validator';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  loginFormControl : FormControl;
+  passwordFormControl : FormControl;
+  matcher : FromValidator;
+  perfis : Perfil[] = [
+    {key: '1', value: 'Colaborador'},
+    {key: '2', value: 'Motorista'}
+  ];
+
+  constructor() {
+    
+    this.loginFormControl = new FormControl('', [Validators.required, Validators.email]);
+    this.passwordFormControl = new FormControl('', [Validators.required, Validators.email]);
+    this.matcher = new FromValidator();
+  }
 
   ngOnInit() {
   }
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  teste() {
 
-  matcher = new FromValidator();
+    if(!this.loginFormControl.invalid)
+    alert("oi");
+  }
 
 }

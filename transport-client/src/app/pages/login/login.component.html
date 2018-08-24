@@ -1,12 +1,36 @@
 <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Please enter a valid email address
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Email" [formControl]="loginFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="loginFormControl.hasError('email') && !loginFormControl.hasError('required')">
+      Informe um e-mail válido.
+    </mat-error>
+    <mat-error *ngIf="loginFormControl.hasError('required')">
+      Preenchimento obrigatório
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input type="password" matInput placeholder="Senha" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="passwordFormControl.hasError('email') && !passwordFormControl.hasError('required')">
+      Informe um e-mail válido.
+    </mat-error>
+    <mat-error *ngIf="passwordFormControl.hasError('required')">
+      Preenchimento obrigatório
+    </mat-error>
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width">
+    <mat-select placeholder="Eu sou">
+      <mat-option *ngFor="let perfil of perfis" [value]="perfil.key">
+        {{perfil.value}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Preenchimento obrigatório
       </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-  </form>
+  </mat-form-field>
+
+  <button mat-raised-button (click)="teste()">Ok</button>
+ 
+</form>
   
