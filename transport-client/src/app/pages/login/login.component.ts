@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { FromValidator } from '../../validator/from-validator';
 
 @Component({
   selector: 'app-login',
@@ -11,5 +13,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  matcher = new FromValidator();
 
 }

@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatInputModule } from '@angular/material';
+import { 
+  MatButtonModule, 
+  MatInputModule, 
+  ErrorStateMatcher, 
+  ShowOnDirtyErrorStateMatcher 
+} from '@angular/material';
+
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -14,6 +21,10 @@ import { MatButtonModule, MatInputModule } from '@angular/material';
     MatInputModule
   ],
   
+  providers: [
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+  ],
+
   declarations: []
 })
 export class MaterialModule { }
