@@ -3,6 +3,8 @@ import { Perfil } from './../../model/interface/perfil.generates';
 import { FromValidator } from './../../validator/from-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { LoginService } from '../../service/login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,7 @@ export class LoginComponent implements OnInit {
     {key: '2', value: 'Motorista'}
   ];
 
-  constructor() {
+  constructor(private loginService: LoginService, private router: Router) {
     
     this.loginFormControl = new FormControl('', [Validators.required, Validators.email]);
     this.passwordFormControl = new FormControl('', [Validators.required]/*, Validators.pattern(this.passwordPattern)]*/);
@@ -37,8 +39,13 @@ export class LoginComponent implements OnInit {
 
   logon() {
 
-    if(!this.loginFormControl.invalid && !this.passwordFormControl.invalid && !this.perfilFormControl.invalid) {
+    if(this.loginFormControl.valid && this.passwordFormControl.valid && this.perfilFormControl.valid) {
+      
+      this.loginService.logon(this.usuario, () =>{
+        this.router.navigateByUrl('/');
+      });
 
+      return false;
     }
   }
 
