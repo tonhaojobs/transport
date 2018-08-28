@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     if(this.loginFormControl.valid && this.passwordFormControl.valid && this.perfilFormControl.valid) {
       
       this.loginService.logon(this.usuario, () =>{
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       });
 
       return false;

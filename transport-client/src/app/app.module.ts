@@ -10,16 +10,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginService } from './service/login/login.service';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'home'},
-  {path: 'login', component: LoginComponent}
+  {path: '', pathMatch: 'full', redirectTo: '/home'},
+  {path: 'login', component: LoginComponent},
+  {path: 'home', component: HomeComponent}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
 
   imports: [
@@ -30,6 +33,10 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     MaterialModule
+  ],
+
+  exports: [
+    RouterModule
   ],
 
   providers: [LoginService],
