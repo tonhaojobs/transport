@@ -8,9 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginService } from './service/login/login.service';
+import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
+import { HttpModule } from '@angular/http';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/home'},
@@ -30,6 +31,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpModule,
     HttpClientModule,
     ReactiveFormsModule,
     MaterialModule
@@ -39,7 +41,7 @@ const routes: Routes = [
     RouterModule
   ],
 
-  providers: [LoginService],
+  providers: [AuthService],
   
   bootstrap: [AppComponent]
 })

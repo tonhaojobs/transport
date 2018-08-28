@@ -16,9 +16,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 import java.util.Date;
 
-/**
- * Created by rajeevkumarsingh on 19/08/17.
- */
+
 @Component
 public class JwtTokenProvider {
 
