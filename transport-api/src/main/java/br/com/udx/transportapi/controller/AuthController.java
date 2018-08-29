@@ -23,6 +23,7 @@ import br.com.udx.transportapi.payload.JwtAuthenticationResponse;
 import br.com.udx.transportapi.payload.LoginRequest;
 import br.com.udx.transportapi.payload.SignUpRequest;
 import br.com.udx.transportapi.security.JwtTokenProvider;
+import br.com.udx.transportapi.security.UserPrincipal;
 import br.com.udx.transportapi.service.RoleService;
 import br.com.udx.transportapi.service.UserService;
 
@@ -52,18 +53,20 @@ public class AuthController {
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
+	
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
-
+		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
+		
+		UserPrincipal currentUser = (UserPrincipal) authentication.getPrincipal();
+		
 		String jwt = tokenProvider.generateToken(authentication);
-		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, currentUser.getName(), currentUser.getRole().getName()));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest, @RequestBody String roleName) {
 
 		if(SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
 			System.out.println("tese");
@@ -75,17 +78,24 @@ public class AuthController {
 		if (userService.existsByEmail(signUpRequest.getEmail())) {
 			return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
 		}
-
+		
+		Role role = null;
+		
+		if(RoleName.ROLE_ADMIN.equals(roleName)) {
+			role = (Role) roleService.findByName(RoleName.ROLE_ADMIN);
+		} else if(RoleName.ROLE_COLABORADOR.equals(roleName)) {
+			role = (Role) roleService.findByName(RoleName.ROLE_COLABORADOR);
+		} else if(RoleName.ROLE_MOTORISTA.equals(roleName)) {
+			role = (Role) roleService.findByName(RoleName.ROLE_MOTORISTA);
+		} else {
+			new AppException("User Role not set.");
+		}
+		
 		// Creating user's account
 		User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
-				signUpRequest.getPassword());
+				signUpRequest.getPassword(), role);
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-		Role userRole = roleService.findByName(RoleName.ROLE_MOTORISTA)
-				.orElseThrow(() -> new AppException("User Role not set."));
-
-		user.setRoles(Collections.singleton(userRole));
 
 		User result = userService.save(user);
 

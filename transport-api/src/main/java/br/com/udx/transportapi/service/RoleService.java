@@ -1,7 +1,5 @@
 package br.com.udx.transportapi.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,7 @@ public class RoleService {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	public Optional<Role> findByName(RoleName roleName) {
+	public Role findByName(RoleName roleName) {
 		return this.roleRepository.findByName(roleName);
 	}
 }

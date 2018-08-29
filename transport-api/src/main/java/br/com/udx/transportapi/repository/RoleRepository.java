@@ -6,9 +6,8 @@ import org.springframework.stereotype.Repository;
 import br.com.udx.transportapi.entity.Role;
 import br.com.udx.transportapi.entity.RoleName;
 
-import java.util.Optional;
-
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    Optional<Role> findByName(RoleName roleName);
+    
+	Role findByName(RoleName roleName);
 }

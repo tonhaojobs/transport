@@ -12,6 +12,7 @@ import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { HttpModule } from '@angular/http';
+import { MenubarComponent } from './templates/menubar/menubar.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/home'},
@@ -23,7 +24,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    MenubarComponent
   ],
 
   imports: [

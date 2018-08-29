@@ -11,7 +11,7 @@ export class AuthService extends AbstractService {
   authenticated = false;
   relativePath: string = "/auth";
 
-  constructor(public http: Http) { 
+  constructor(protected http: Http) { 
     super(http);
   }
 
@@ -24,9 +24,29 @@ export class AuthService extends AbstractService {
       { headers: this.getHeaders() }*/
     )
     .map((response: Response) =>{
-        const token = response.json() && response.json();                            
-        return response.json();
-      })
+        
+      let token = response.json() && response.json().accessToken;      
+      
+      if(token) {
+
+        window.sessionStorage.clear();
+
+        window.sessionStorage.setItem("userName", response.json().userName);
+        window.sessionStorage.setItem("token", response.json().accessToken);
+        window.sessionStorage.setItem("roleName", response.json().roleName);
+        
+        return true;
+      } else {
+        return false;
+      }
+    })
       .catch((error: any) => Observable.throw(error.json().error || 'Error de Servidor'));
   }
+
+  logout() {
+    window.sessionStorage.clear();
+  }
 }
+
+//https://thiagomelin.com.br/2017/09/04/angular-2-guard-protegendo-suas-rotas/
+//https://embed.plnkr.co/KNb1No/

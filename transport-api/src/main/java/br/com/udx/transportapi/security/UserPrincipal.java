@@ -1,18 +1,16 @@
 package br.com.udx.transportapi.security;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.com.udx.transportapi.entity.User;
+import java.util.Collection;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.udx.transportapi.entity.Role;
+import br.com.udx.transportapi.entity.User;
 
 public class UserPrincipal implements UserDetails {
 	
@@ -29,22 +27,19 @@ public class UserPrincipal implements UserDetails {
 
     @JsonIgnore
     private String password;
+    
+    private Role role;
 
-    private Collection<? extends GrantedAuthority> authorities;
-
-    public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String name, String username, String email, String password, Role role) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
+        this.role = role;
     }
 
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
 
         return new UserPrincipal(
                 user.getId(),
@@ -52,7 +47,7 @@ public class UserPrincipal implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities
+                user.getRole()
         );
     }
 
@@ -77,10 +72,14 @@ public class UserPrincipal implements UserDetails {
     public String getPassword() {
         return password;
     }
+    
+    public Role getRole() {
+		return role;
+	}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return null;
     }
 
     @Override
