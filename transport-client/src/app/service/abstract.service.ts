@@ -6,6 +6,7 @@ export class AbstractService {
 
   protected http: Http;
   protected url = "http://localhost:8080/transport/api";
+  protected action = "";
 
   constructor(http : Http) {
     this.http = http;

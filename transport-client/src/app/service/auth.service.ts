@@ -15,11 +15,24 @@ export class AuthService extends AbstractService {
     super(http);
   }
 
+  getUserName() {
+    return window.sessionStorage.getItem("userName") ;
+  }
+
+  getActiveToken() {
+    return window.sessionStorage.getItem("token");
+  }
+
+  isAuthenticate() : boolean {
+    return window.sessionStorage.getItem("token") !== null;
+  }
+
+
   login(usuario : Usuario) : Observable<any> {
 
-    const action = "/signin";
+    this.action = "/signin";
 
-    return this.http.post(this.url + this.relativePath + action, 
+    return this.http.post(this.url + this.relativePath + this.action, 
       { 'usernameOrEmail': usuario.login, 'password': usuario.password }/*, 
       { headers: this.getHeaders() }*/
     )
@@ -29,6 +42,9 @@ export class AuthService extends AbstractService {
       
       if(token) {
 
+        window.sessionStorage.removeItem("userName");
+        window.sessionStorage.removeItem("token");
+        window.sessionStorage.removeItem("roleName");
         window.sessionStorage.clear();
 
         window.sessionStorage.setItem("userName", response.json().userName);
@@ -44,6 +60,9 @@ export class AuthService extends AbstractService {
   }
 
   logout() {
+    window.sessionStorage.removeItem("userName");
+    window.sessionStorage.removeItem("token");
+    window.sessionStorage.removeItem("roleName");
     window.sessionStorage.clear();
   }
 }

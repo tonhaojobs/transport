@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
         if(data === true) {
           
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         } 
       },
       error =>{

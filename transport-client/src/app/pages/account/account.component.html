@@ -1,0 +1,22 @@
+<form class="example-form">
+        
+          <input  placeholder="Email" name="login"  [(ngModel)]="usuario.login">
+         
+        
+      
+    
+        
+        <!--mat-form-field class="example-full-width">
+          <mat-select placeholder="Eu sou" [formControl]="perfilFormControl" [errorStateMatcher]="matcher" [(ngModel)]="usuario.tipo">
+            <mat-option *ngFor="let perfil of perfis" [value]="perfil.key">
+              {{perfil.value}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="perfilFormControl.hasError('required')">
+              Preenchimento obrigatório
+          </mat-error>
+        </mat-form-field-->
+      
+        <button mat-raised-button (click)="login()">Ok</button>
+       
+      </form>

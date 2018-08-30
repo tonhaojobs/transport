@@ -1,0 +1,16 @@
+<div *ngIf="headerVisible()">
+
+  <nav>
+    <ul>
+      <li>
+          <a class="dropdown-item" routerLink="/account">
+            <span>Minha Conta</span>
+          </a>
+      </li>
+    </ul>
+  </nav>
+
+
+  Olá, {{userName()}}
+  <button (click)="logout()">Sair</button>
+</div>

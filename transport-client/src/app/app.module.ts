@@ -5,17 +5,22 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material/material.module';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { HttpModule } from '@angular/http';
-import { MenubarComponent } from './templates/menubar/menubar.component';
+import { FooterComponent } from './templates/footer/footer.component';
+import { HeaderComponent } from './templates/header/header.component';
+import { MaterialModule } from './modules/material/material.module';
+import { HeaderModule } from './modules/header/header.module';
+import { AccountComponent } from './pages/account/account.component';
+import { UserService } from './service/user.service';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: '/home'},
+  {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent}
 ]
@@ -25,7 +30,9 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    MenubarComponent
+    FooterComponent,
+    HeaderComponent,
+    AccountComponent
   ],
 
   imports: [
@@ -36,14 +43,15 @@ const routes: Routes = [
     HttpModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    HeaderModule
   ],
 
   exports: [
     RouterModule
   ],
 
-  providers: [AuthService],
+  providers: [AuthService, UserService],
   
   bootstrap: [AppComponent]
 })
